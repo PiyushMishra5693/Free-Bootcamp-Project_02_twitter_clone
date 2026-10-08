@@ -105,8 +105,8 @@ export const getMe = async(req,res)=>{
 
   try{
 
-    const user = await User.findById(req.user_id);
-    return res.status(200).json({message:"success"});
+   const user = await User.findById(req.user._id).select("-password");
+		res.status(200).json(user);
   }
   catch(error){
     return res.status(500).json({ message: error.message });
