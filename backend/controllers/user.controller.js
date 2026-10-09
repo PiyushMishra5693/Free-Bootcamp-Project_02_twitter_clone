@@ -95,11 +95,11 @@ export const updateUserProfile= async(req,res)=>{
     const {profileImage,coverImage}= req.body;
 
     const userId = req.user._id;
-    let user =await User.findById(userId)
+    let user =await User.findById(userId);
 
 
     if((!currentPassword && newPassword)||(!newPassword && currentPassword)){
-      return res.status(400).json({message:"Current password and new password should match "})
+      return res.status(400).json({message:"Current password and new password should match "});
     }
 
     if(currentPassword && newPassword){
@@ -114,11 +114,18 @@ export const updateUserProfile= async(req,res)=>{
     }
 
     if(profileImage){
+       if(user.profileImage){
+        await cloudinary.uploader.destroy(user.profileImage.split("/").pop().split(".")[0]);
+      }
       const uploadedResponse = await cloudinary.uploader.upload(profileImage);
       user.profileImage =uploadedResponse.secure_url;
       
     }
     if(coverImage){
+
+      if(user.coverImage){
+        await cloudinary.uploader.destroy(user.coverImage.split("/").pop().split(".")[0]);
+      }
       const uploadedResponse = await cloudinary.uploader.upload(coverImage);
       user.coverImage =uploadedResponse.secure_url;
     }

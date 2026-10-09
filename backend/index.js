@@ -5,13 +5,14 @@ import dns from "dns"
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
+import postRouter from "./routes/post.route.js"
 import {v2 as cloudinary} from "cloudinary";
 dns.setServers(["1.1.1.1"]);
 dotenv.config();
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json({limit:"5mb"}));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -22,6 +23,7 @@ cloudinary.config({
 })
 app.use("/api/auth",authRouter);
 app.use("/api/users",userRouter);
+app.use("/api/posts",postRouter);
 const PORT = process.env.PORT ||5000;
 
 
