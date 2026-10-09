@@ -169,7 +169,7 @@ export const getUserPost= async(req,res)=>{
             return res.status(404).json({message:"User not found"});
         }
 
-        const post = await Post.find({user}).sort({createdAt:-1})
+        const post = await Post.find({user:user._id}).sort({createdAt:-1})
         .populate({path:"user",select:"-password"})
         .populate({path:"comments.user",select:"-password"});
 
