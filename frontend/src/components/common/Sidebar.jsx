@@ -11,7 +11,16 @@ import toast from "react-hot-toast";
 const Sidebar = () => {
 
 	const queryClient= useQueryClient();
-	const {data:authUser}= useQuery({queryKey:["authUser"]});
+	const { data: authUser } = useQuery({
+	queryKey: ["authUser"],
+	queryFn: async () => {
+		const res = await fetch("/api/auth/me");
+		const data = await res.json();
+		if (!res.ok || data.error) throw new Error(data.error || "Something went wrong");
+		return data;
+	},
+	retry: false,
+});
 	const { mutate: logout, isPending } = useMutation({
 		mutationFn: async () => {
 			const res = await fetch("/api/auth/logout", { method: "POST" });

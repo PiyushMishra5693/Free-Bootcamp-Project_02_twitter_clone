@@ -2,7 +2,6 @@ import User from "../models/user.model.js"
 import Post from "../models/post.model.js"
 import Notification from "../models/notification.model.js"
 import {v2 as cloudinary} from "cloudinary"
-import { populate } from "dotenv"
 
 
 export const createPost = async(req,res)=>{
@@ -23,7 +22,7 @@ export const createPost = async(req,res)=>{
             return res.status(400).json({message:"Provide atleast one text or image"});
         }
         if(image){
-            const updatedResponce = await cloudinary.uploader.upload(img);
+            const updatedResponce = await cloudinary.uploader.upload(image);
             image= updatedResponce.secure_url;
         }
 
@@ -145,7 +144,7 @@ export const getAllPost= async(req,res)=>{
             select:"-password"
         })
         if(post.length===0){
-            return res.status(400).json([]);
+            return res.status(200).json([]);
         }
         
         return res.status(200).json(post);

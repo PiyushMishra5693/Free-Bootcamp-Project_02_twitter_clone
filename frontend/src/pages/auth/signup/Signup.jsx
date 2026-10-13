@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 const SignUpPage = () => {
 	const [formData, setFormData] = useState({
 		email: "",
-		username: "",
+		userName: "",
 		fullName: "",
 		password: "",
 	});
@@ -33,7 +33,6 @@ const SignUpPage = () => {
 
 				const data = await res.json();
 				if (!res.ok) throw new Error(data.error || "Failed to create account");
-				console.log(data);
 				return data;
 			} catch (error) {
 				console.error(error);
@@ -85,10 +84,10 @@ const SignUpPage = () => {
 							<input
 								type='text'
 								className='grow '
-								placeholder='Username'
-								name='username'
+								placeholder='UserName'
+								name='userName'
 								onChange={handleInputChange}
-								value={formData.username}
+								value={formData.userName}
 							/>
 						</label>
 						<label className='input input-bordered rounded flex items-center gap-2 flex-1'>
