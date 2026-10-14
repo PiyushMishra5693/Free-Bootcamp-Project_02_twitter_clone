@@ -15,12 +15,19 @@ const useFollow=()=>{
             }
             return data;
         },
-        onSuccess:()=>{
-            Promise.all([
-                queryClient.invalidateQueries({queryKey:["suggestedUsers"]}),
-                queryClient.invalidateQueries({queryKey:["authUser"]})
-            ])
-        },
+       onSuccess: () => {
+    Promise.all([
+        queryClient.invalidateQueries({
+            queryKey: ["userProfile"],
+        }),
+        queryClient.invalidateQueries({
+            queryKey: ["suggestedUsers"],
+        }),
+        queryClient.invalidateQueries({
+            queryKey: ["authUser"],
+        }),
+    ]);
+},
         onError:(error)=>{
             toast.error(error.message)
         }
