@@ -2,19 +2,22 @@ import Notification from "../models/notification.model.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import {v2 as cloudinary} from "cloudinary";
+
 export const getUserProfile = async (req, res) => {
-  try {
-    const { username } = req.params;
+    try {
+        const { username } = req.params;
 
-    const user = await User.findOne({ userName: username }).select("-password");
+        // Schema uses `userName`, so query by that.
+        const user = await User.findOne({ userName: username }).select("-password");
 
-    if (!user) {
-      return res.status(400).json({ message: "No user found" });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        return res.status(200).json(user);
+    } catch (error) {
+        console.log("Error in getUserProfile:", error.message);
+        return res.status(500).json({ error: error.message });
     }
-    return res.status(200).json(user);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
 };
 
 export const followUnfollowUser = async (req, res) => {

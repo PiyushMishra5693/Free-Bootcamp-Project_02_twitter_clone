@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 router.get("/profile/:username",protectRoute,getUserProfile);
-router.get("/followUnfollow/:id",protectRoute,followUnfollowUser);
+router.post("/followUnfollow/:id",protectRoute,followUnfollowUser);
 router.get("/suggested",protectRoute,getSuggestedUser);
 router.put("/update",protectRoute,updateUserProfile);
 
