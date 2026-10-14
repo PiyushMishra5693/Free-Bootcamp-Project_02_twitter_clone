@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon backend/index.js",
-    "build": "cross-env NODE_ENV=production npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "dev": "NODE_ENV=development nodemon backend/index.js",
+    "build": "NODE_ENV=production npm install && npm install --prefix frontend && npm run build --prefix frontend",
     "start": "node backend/index.js"
   },
   "keywords": [],
@@ -17,7 +17,6 @@
     "cloudinary": "^2.11.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
-    "cross-env": "^10.1.0",
     "dotenv": "^18.0.5",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
