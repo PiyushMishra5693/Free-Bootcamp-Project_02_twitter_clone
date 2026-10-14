@@ -29,6 +29,8 @@ app.use("/api/posts",postRouter);
 app.use("/api/notifications",notificationRouter);
 const PORT = process.env.PORT ||5000;
 
+
+console.log(process.env.NODE_ENV);
 const __dirname = path.resolve();
 if(process.env.NODE_ENV==="production"){
 
